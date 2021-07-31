@@ -1,0 +1,21 @@
+{
+  "name": "calculadordeedad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calculadorDeEdad.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect calculadorDeEdad.js",
+    "express":"nodemon --inspect servidorExpress.js",
+    "http": "nodemon --inspect mensajeSegunHora.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1"
+  }
+}
