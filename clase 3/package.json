@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --inspect calculadorDeEdad.js",
-    "express":"nodemon --inspect servidorExpress.js",
+    "express": "nodemon --inspect servidorExpress.js",
     "http": "nodemon --inspect mensajeSegunHora.js"
   },
   "author": "",
