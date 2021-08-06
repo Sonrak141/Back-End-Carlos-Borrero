@@ -45,9 +45,10 @@ class Contenedor {
         await this.getAll();
         let obj = []
         this.data.map((product) => {
-            if (this.id === id) obj = product;
+            if (product.id === id) obj = product;
         });
         console.log(obj);
+        return obj;
     }
     async getAll() {
         try {
@@ -110,29 +111,38 @@ class Contenedor {
 }
 
 const prod = new Contenedor('productos.txt')
+
 let view = [];
 prod.read().then(
     data => data.map((obj) =>{
         view.push(obj)
-        app.get('/', (req, res, next) => {
+        app.get('/products', (req, res, next) => {
     
             res.send(view)
         })
     })
     
 );
-prod.random().then(
-    prod.getById(this.random)
+let iObj = 0;
+
+const randomProduct = async ()=>{
+await prod.random().then(data => iObj = data)
+await console.log(iObj)
+
+}
+
+randomProduct()
+app.get('/random-product', (req, res, next) => {
+        randomProduct()
+        prod.getById(iObj).then(
+        data =>  res.send(data)
+    )
     
-)
-
-
-
-
-app.get('/fyh', (req, res, next) => {
-    let date = new Date().toLocaleString("es-CO")
-    res.send(`La hora es ${date}`)
 })
+
+
+
+
 const PORT = 8080;
 const server = app.listen(PORT, () => {
     console.log('Servidor corriendo con express')
