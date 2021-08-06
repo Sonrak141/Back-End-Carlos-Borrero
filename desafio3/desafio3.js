@@ -99,9 +99,11 @@ class Contenedor {
     }
 
     async random () {
-        let product = [];
         await this.getAll();
         let maxNumber = this.data[this.data.length - 1].id
+        let random = Math.floor(Math.random() *maxNumber+1)
+        
+        return random
         
     }
 
@@ -119,7 +121,10 @@ prod.read().then(
     })
     
 );
-
+prod.random().then(
+    prod.getById(this.random)
+    
+)
 
 
 
