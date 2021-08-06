@@ -98,6 +98,13 @@ class Contenedor {
         
     }
 
+    async random () {
+        let product = [];
+        await this.getAll();
+        let maxNumber = this.data[this.data.length - 1].id
+        
+    }
+
 }
 
 const prod = new Contenedor('productos.txt')
@@ -117,11 +124,6 @@ prod.read().then(
 
 
 
-let visitas = 0
-app.get('/visitas', (req, res, next) => {
-    visitas++
-    res.send(`Cantidad de Visitas: ${visitas}`)
-})
 app.get('/fyh', (req, res, next) => {
     let date = new Date().toLocaleString("es-CO")
     res.send(`La hora es ${date}`)
