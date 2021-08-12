@@ -1,0 +1,1 @@
+[{"id":1,"product":{"title":"Escuadra","price":123.45,"thumbnail":"https://www.neolo.com/blog/wp-content/uploads/2020/04/Por-qu%C3%A9-usar-thumbnails-1024x1024.jpg"}}]
