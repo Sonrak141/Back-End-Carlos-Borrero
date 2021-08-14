@@ -1,9 +1,8 @@
 const fs = require('fs');
-const express = require('express');
 
-interface prodFill{
+interface prodFill {
     title: string;
-    pricec: number;
+    price: number;
     thumbnail: string
 }
 
@@ -18,31 +17,30 @@ interface productsList {
     data: product[];
 }
 
-const app = express();
-class productsList{
-    constructor(archivo: string){
+class productsList {
+    constructor(archivo: string) {
         this.archivo = archivo;
         this.id = 0;
         this.data = [];
     }
-    
-    async save(obj) {
+
+    async save(obj: prodFill) {
         await this.getAll();
         this.id++;
         this.data.push({
-          id: this.id,
-          product: obj,
+            id: this.id,
+            product: obj,
         });
         try {
-          await fs.promises.writeFile(this.archivo, JSON.stringify(this.data));
+            await fs.promises.writeFile(this.archivo, JSON.stringify(this.data));
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
+    }
 
-      async getById(id: number) {
+    async getById(id: number) {
         await this.getAll();
-        let obj= {}
+        let obj = {}
         this.data.map((product) => {
             if (product.id === id) obj = product;
         });
@@ -58,15 +56,15 @@ class productsList{
                 this.data.map((product) => {
                     if (this.id < product.id) this.id = product.id;
                 });
-                
+
             }
-            
+
         } catch (error) {
             return;
         }
     }
 
-    async deleteById(id) {
+    async deleteById(id: number) {
         await this.getAll();
         let objI = 0;
         this.data.map((product) => {
@@ -89,29 +87,15 @@ class productsList{
     //         }
     //     })
     // }
-    async read () {
-        let list = []
+    async read() {
+        let list: product[] = []
         await this.getAll();
         this.data.map((obj) => {
             list.push(obj)
         })
         return list
-        
+
     }
 }
 
-const data1 = {
-    title:'Escuadra',
-    price: 123.45,
-    thumbnail:'https://www.neolo.com/blog/wp-content/uploads/2020/04/Por-qu%C3%A9-usar-thumbnails-1024x1024.jpg'
-}
-const prod = new productsList('./API_RESTful/productos.txt');
-
-app.get('/', (req, res) => {
-    res.send('<h1>Hola Mundo</h1>')
-})
-
-const PORT = 8082;
-const server = app.listen(PORT, () => {
-    console.log('Servidor productos Api corriendo')
-})
+module.exports = productsList;
