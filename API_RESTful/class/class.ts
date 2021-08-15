@@ -24,6 +24,8 @@ class productsList {
         this.data = [];
     }
 
+
+
     async save(obj: prodFill) {
         await this.getAll();
         this.id++;
@@ -96,6 +98,9 @@ class productsList {
         return list
 
     }
+
+    
+    
 }
 
 module.exports = productsList;
