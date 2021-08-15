@@ -1,5 +1,7 @@
 var productsListMaker = require('./class/class.js');
 var express = require('express');
+var Router = express.Router;
+var router = new Router();
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,10 +18,11 @@ app.get('/', function (req, res) {
 var view = [];
 prod.read().then(function (data) { return data.map(function (obj) {
     view.push(obj);
-    app.get('/productos', function (req, res, next) {
+    app.get('/api/productos', function (req, res, next) {
         res.send(view);
     });
 }); });
+app.use('/api/productos', router);
 var PORT = 8082;
 var server = app.listen(PORT, function () {
     console.log('Servidor productos Api corriendo');

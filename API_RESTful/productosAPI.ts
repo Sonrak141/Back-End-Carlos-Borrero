@@ -1,5 +1,6 @@
 const productsListMaker = require('./class/class.js')
 const express = require('express');
+const {Router} = express;
 
 
 
@@ -21,7 +22,7 @@ interface productsList {
 }
 
 const app = express();
-
+const router = express.Router();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -40,13 +41,15 @@ let view: product[] = [];
 prod.read().then(
     (data: any[]) => data.map((obj) => {
         view.push(obj)
-        app.get('/productos', (req: any, res: any, next: any) => {
+        app.get('/api/productos', (req: any, res: any, next: any) => {
 
             res.send(view)
         })
     })
 
 );
+
+app.use('/api/productos', router)
 
 const PORT = 8082;
 const server = app.listen(PORT, () => {
