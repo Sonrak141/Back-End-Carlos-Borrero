@@ -83,7 +83,6 @@ var productsList = /** @class */ (function () {
                             if (product.id === id)
                                 obj = product;
                         });
-                        console.log(obj);
                         return [2 /*return*/, obj];
                 }
             });

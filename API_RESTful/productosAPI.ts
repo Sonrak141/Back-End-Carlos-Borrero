@@ -49,6 +49,21 @@ prod.read().then(
 
 );
 
+api.get('/:num', (req: any, res: any)=>{
+    const {num} = req.params;
+    let product = {}
+    const idNum = parseInt(num)
+    prod.getById(idNum).then((data: any) => res.send(data))
+});
+
+api.post('/', (req: any, res: any) => {
+    prod.save(req.body).then((data: any) => res.send(data))
+})
+
+api.put('/', (req: any, res: any) => {
+    
+})
+
 app.use('/api/productos', api)
 
 const PORT = 8082;

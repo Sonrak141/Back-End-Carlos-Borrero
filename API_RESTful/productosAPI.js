@@ -22,6 +22,16 @@ prod.read().then(function (data) { return data.map(function (obj) {
         res.send(view);
     });
 }); });
+api.get('/:num', function (req, res) {
+    var num = req.params.num;
+    var product = {};
+    var idNum = parseInt(num);
+    prod.getById(idNum).then(function (data) { return res.send(data); });
+});
+api.post('/', function (req, res) {
+    var product = req.body.product;
+    prod.save(req.body).then(function (data) { return res.send(data); });
+});
 app.use('/api/productos', api);
 var PORT = 8082;
 var server = app.listen(PORT, function () {

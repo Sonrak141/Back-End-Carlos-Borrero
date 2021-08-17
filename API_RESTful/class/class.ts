@@ -46,7 +46,7 @@ class productsList {
         this.data.map((product) => {
             if (product.id === id) obj = product;
         });
-        console.log(obj);
+        
         return obj;
     }
 
