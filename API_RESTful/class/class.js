@@ -34,16 +34,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var fs = require('fs');
+var fs = require("fs");
 var productsList = /** @class */ (function () {
     function productsList(archivo) {
+        var _this = this;
+        this.stringifiar = function (array) { return JSON.stringify(array, null, 2); }; // Método para stringifiar el Array y evitar la repetición del código.
+        this.saveList = function (nuevaLista) { return __awaiter(_this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, fs.writeFile(this.archivo, nuevaLista)];
+                    case 1:
+                        _a.sent(); // Guardar archivo JSON.
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.log(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        this.updateById = function (id, newProduct) { return __awaiter(_this, void 0, void 0, function () {
+            var lista, index, producto, title, price, thumbnail;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getAll()];
+                    case 1:
+                        _a.sent();
+                        lista = this.data;
+                        index = lista.findIndex(function (product) { return product.id == id; });
+                        producto = lista[index];
+                        if (!producto) return [3 /*break*/, 3];
+                        title = newProduct.title, price = newProduct.price, thumbnail = newProduct.thumbnail;
+                        // Actualizar los datos:
+                        producto.product.title = title;
+                        producto.product.price = price;
+                        producto.product.thumbnail = thumbnail;
+                        // Insertar el producto modificado en la lista:
+                        lista[index] = producto;
+                        return [4 /*yield*/, this.saveList(lista)];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/, producto];
+                    case 3: return [2 /*return*/, null];
+                }
+            });
+        }); };
         this.archivo = archivo;
         this.id = 0;
         this.data = [];
     }
     productsList.prototype.save = function (obj) {
         return __awaiter(this, void 0, void 0, function () {
-            var error_1;
+            var error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.getAll()];
@@ -62,8 +108,8 @@ var productsList = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        error_1 = _a.sent();
-                        console.log(error_1);
+                        error_2 = _a.sent();
+                        console.log(error_2);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }
@@ -90,7 +136,7 @@ var productsList = /** @class */ (function () {
     };
     productsList.prototype.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var data, error_2;
+            var data, error_3;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -108,7 +154,7 @@ var productsList = /** @class */ (function () {
                         }
                         return [3 /*break*/, 3];
                     case 2:
-                        error_2 = _a.sent();
+                        error_3 = _a.sent();
                         return [2 /*return*/];
                     case 3: return [2 /*return*/];
                 }
@@ -117,7 +163,7 @@ var productsList = /** @class */ (function () {
     };
     productsList.prototype.deleteById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var objI, error_3;
+            var objI, error_4;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -138,23 +184,14 @@ var productsList = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        error_3 = _a.sent();
-                        console.log(error_3);
+                        error_4 = _a.sent();
+                        console.log(error_4);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }
             });
         });
     };
-    // async deleteAll(archivo) {
-    //     fs.promises.unlink(`./${archivo}`, (error) => {
-    //         if (error) {
-    //             console.log(error);
-    //         } else {
-    //             console.log(`${archivo} eliminado`)
-    //         }
-    //     })
-    // }
     productsList.prototype.read = function () {
         return __awaiter(this, void 0, void 0, function () {
             var list;

@@ -60,8 +60,14 @@ api.post('/', (req: any, res: any) => {
     prod.save(req.body).then((data: any) => res.send(data))
 })
 
-api.put('/', (req: any, res: any) => {
-    
+api.put('/:id', (req: any, res: any) => {
+    const {id} = req.params;
+    prod.updateById(id, req.body).then((data: any) => res.send(data))
+})
+
+api.delete('/:id', (req: any, res: any) =>{
+    const {id} = req.params;
+    prod.deleteById(id).then((data: any) => res.send(data))
 })
 
 app.use('/api/productos', api)

@@ -29,8 +29,15 @@ api.get('/:num', function (req, res) {
     prod.getById(idNum).then(function (data) { return res.send(data); });
 });
 api.post('/', function (req, res) {
-    var product = req.body.product;
     prod.save(req.body).then(function (data) { return res.send(data); });
+});
+api.put('/:id', function (req, res) {
+    var id = req.params.id;
+    prod.updateById(id, req.body).then(function (data) { return res.send(data); });
+});
+api["delete"]('/:id', function (req, res) {
+    var id = req.params.id;
+    prod.deleteById(id).then(function (data) { return res.send(data); });
 });
 app.use('/api/productos', api);
 var PORT = 8082;
