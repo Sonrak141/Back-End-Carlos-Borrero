@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>Vista de Productos</title>
+  <meta name="description" content="Vista de productos">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+  
+    <div>
+
+        <%/* Botones de navegacion */%>
+     
+        <div>
+            <a href="/">Formulario</a>  
+            <a href="/productos">Vista de Productos</a>  
+        </div>
+     
+        <div>
+        
+            <div>
+
+                <h4>Vista de Productos:</h4>
+
+                <%/* Si no hay productos que muestre un mensaje */%>
+
+                <% if(productos.length < 1){ %>
+                    <h5>No se encontraron productos.</h5>
+                <% } else { %>  
+                    <table>
+                        <thead>
+                            <tr>
+                            <th>Nombre:</th>
+                            <th>Precio:</th>
+                            <th>Foto:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%/* Iteración para mostrar cada producto en el array de productos */%>
+                            <% productos.forEach(function(producto){ %>
+                            <tr>
+                                <td> <%=producto.product.title%> </td>
+                                <td> $ <%=producto.product.price%> </td>
+                                <td> <img src="<%=producto.product.thumbnail%>" >  </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
