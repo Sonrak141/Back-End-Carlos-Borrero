@@ -1,0 +1,26 @@
+div 
+  a(href='/')='Formulario'
+  a(href="/productos")='Vista Productos' 
+hr
+
+if productos.length < 1
+  h5 No se encontraron productos.
+
+else
+  table
+    thead
+        tr
+            th Nombre:
+            th Precio:
+            th Foto:
+    tbody
+        each producto in productos
+            tr
+                td #{ producto.product.title }
+                td #{ producto.product.price }
+                td
+                  img(src=producto.product.thumbnail)
+
+
+
+

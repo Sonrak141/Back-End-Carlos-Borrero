@@ -1,0 +1,54 @@
+html 
+    head 
+        title='Productos'
+    body 
+        div 
+            a(href='/')='Formulario'
+            a(href="/productos")='Vista Productos' 
+        hr    
+        div 
+            form(action="/productos" method='POST' id='formulario')
+                label(for='title')='Titulo'
+                input(type="text" name="title" id='title' required)
+                label(for='title')='Precio'
+                input(type="text" name="price" id='price' required)   
+                label(for='title')='URL de la imagen'
+                input(type="text" name="thumbnail" id='thunbnail' required)
+                input(type="submit" value="Enviar")            
+        
+
+
+
+
+//- <!DOCTYPE html>
+//- <html lang="en">
+  
+//- <head>
+//-   <meta charset="utf-8">
+//-   <title>Ejercicio Handlebars</title>
+//-   <meta name="description" content="Vista de productos">
+//-   <meta name="viewport" content="width=device-width, initial-scale=1">
+//- </head>
+
+//- <body>
+  
+//-     <div>
+    
+            
+        
+//-         <div>
+//-             <a href="/">Formulario</a>  
+//-             <a href="/productos">Vista de Productos</a>  
+//-         </div>
+        
+
+      
+
+//-         <div>
+//-             {{{ body }}}
+//-         </div>
+
+//-     </div>
+
+//- </body>
+//- </html>
