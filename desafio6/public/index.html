@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Websocket</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src='/socket.io/socket.io.js'></script>
+  </head>
+  <body>
+    <h1>Websocket</h1>
+
+    <div>
+      <h4>Ingrese un producto:</h4>
+
+      <form id="formulario" method="POST" action="/productos">
+        <label for="title">Título:</label>
+        <input type="text" name="title" id="title" required />
+
+        <label for="price">Precio:</label>
+        <input type="text" name="price" id="price" required />
+
+        <label for="thumbnail">URL de la imagen:</label>
+        <input type="text" name="thumbnail" id="thumbnail" required />
+
+        <input type="submit" value="Enviar" />
+      </form>
+    </div>
+
+    <script>
+        const socket = io()
+
+        socket.on('connectionMessage', (data) =>{
+            console.log(data)
+            alert(data)
+        })
+
+    </script>
+  </body>
+</html>
