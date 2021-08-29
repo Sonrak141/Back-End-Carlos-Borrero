@@ -36,6 +36,12 @@
             alert(data)
         })
 
+        socket.on('Product List', (data) =>{
+          data.map(product => {
+            console.log(product)
+          })
+        })
+
     </script>
   </body>
 </html>
