@@ -17,11 +17,18 @@ io.on('connection', async (socket)=>{
     const data = await prod.read();
     console.log(emoji.get('pizza'),'Usuario Conectado')
     socket.emit('connectionMessage', 'Bienvenidos a el Socket')
-    socket.emit('Product List', data)
+    socket.emit('ProductList', data)
     socket.on('disconnect', ()=>{
         console.log(emoji.get('fire'),'Usuario Desconectado')
     })
+    socket.on('producto', async(data)=>{
+        await prod.save(data)
+        const newData = await prod.read()
+        io.sockets.emit('ProductList', newData)
+    })
 })
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));

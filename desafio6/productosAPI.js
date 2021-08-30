@@ -46,6 +46,7 @@ var io = new IOServer(httpServer);
 var prod = new productList('./productos.txt');
 io.on('connection', function (socket) { return __awaiter(_this, void 0, void 0, function () {
     var data;
+    var _this = this;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, prod.read()];
@@ -53,10 +54,25 @@ io.on('connection', function (socket) { return __awaiter(_this, void 0, void 0, 
                 data = _a.sent();
                 console.log(emoji.get('pizza'), 'Usuario Conectado');
                 socket.emit('connectionMessage', 'Bienvenidos a el Socket');
-                socket.emit('Product List', data);
+                socket.emit('ProductList', data);
                 socket.on('disconnect', function () {
                     console.log(emoji.get('fire'), 'Usuario Desconectado');
                 });
+                socket.on('producto', function (data) { return __awaiter(_this, void 0, void 0, function () {
+                    var newData;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, prod.save(data)];
+                            case 1:
+                                _a.sent();
+                                return [4 /*yield*/, prod.read()];
+                            case 2:
+                                newData = _a.sent();
+                                io.sockets.emit('ProductList', newData);
+                                return [2 /*return*/];
+                        }
+                    });
+                }); });
                 return [2 /*return*/];
         }
     });

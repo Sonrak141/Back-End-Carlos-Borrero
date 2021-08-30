@@ -14,7 +14,7 @@
     <div>
       <h4>Ingrese un producto:</h4>
 
-      <form id="formulario" method="POST" action="/productos">
+      <form id="formulario" method="" action="">
         <label for="title">Título:</label>
         <input type="text" name="title" id="title" required />
 
@@ -24,7 +24,7 @@
         <label for="thumbnail">URL de la imagen:</label>
         <input type="text" name="thumbnail" id="thumbnail" required />
 
-        <input type="submit" value="Enviar" />
+        <input type="submit" value="Enviar" id="submit" />
       </form>
     </div>
 
@@ -60,7 +60,7 @@
             alert(data)
         })
 
-        socket.on('Product List', products =>{
+        socket.on('ProductList', products =>{
         
           const html = tableRows(products);
 
@@ -69,8 +69,7 @@
           document.getElementById('productsTable').innerHTML = html;
         });
         
-        // Construir las filas de la tabla con map y un template string para cada fila. 
-        // El .join(' ') al final es para que no le agregue una coma entre cada item del array.
+    
         
         const tableRows = products => products.map( product =>
           `
@@ -83,7 +82,24 @@
           ).join(' ')
         ;
         
-        
+        const title = document.getElementById('title');
+        const price = document.getElementById('price');
+        const thumbnail = document.getElementById('thumbnail');
+        const submit = document.getElementById('submit');
+         submit.addEventListener('click', (e) =>{
+           e.preventDefault();
+           console.log({
+            title: title.value,
+            price: price.value,
+            thumbnail: thumbnail.value,
+           })
+           socket.emit('producto', {
+             title: title.value,
+             price: price.value,
+             thumbnail: thumbnail.value,
+           })
+         })
+
 
     </script>
   </body>
