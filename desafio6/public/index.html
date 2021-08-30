@@ -28,19 +28,62 @@
       </form>
     </div>
 
+    <br>
+    <br>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Nombre:</th>
+          <th>Precio:</th>
+          <th>Foto:</th>
+        </tr>
+      </thead>
+  
+      <!-- Acá va a ir insertada la tabla dinámica creada en JavaScript -->
+  
+      <tbody id="productsTable"></tbody>
+  
+    </table>
+
+    </div>
+
     <script>
-        const socket = io()
+      var productos = document.getElementById('productos');
+     
+      const socket = io()
 
         socket.on('connectionMessage', (data) =>{
+          
             console.log(data)
             alert(data)
         })
 
-        socket.on('Product List', (data) =>{
-          data.map(product => {
-            console.log(product)
-          })
-        })
+        socket.on('Product List', products =>{
+        
+          const html = tableRows(products);
+
+          // Insertar la tabla en el DOM:
+        
+          document.getElementById('productsTable').innerHTML = html;
+        });
+        
+        // Construir las filas de la tabla con map y un template string para cada fila. 
+        // El .join(' ') al final es para que no le agregue una coma entre cada item del array.
+        
+        const tableRows = products => products.map( product =>
+          `
+              <tr>
+                  <td>${product.product.title}</td>
+                  <td>$${product.product.price}</td>
+                  <td><img style="width:6vw;" class="img-thumbnail" src=${product.product.thumbnail}></td>
+              </tr>
+          `
+          ).join(' ')
+        ;
+        
+        
 
     </script>
   </body>
