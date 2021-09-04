@@ -1,0 +1,12 @@
+<div>
+    <h4>productos</h4>
+    {{#if productos}}
+    {{#each productos}}
+        <div>
+            <h4>{{this.product.name}}</h4>
+        </div>
+    {{/each}}
+    {{else}}
+    <h5>No hay productos</h5>
+    {{/if}}    
+</div>

@@ -58,7 +58,7 @@ var productsList = /** @class */ (function () {
             });
         }); };
         this.updateById = function (id, newProduct) { return __awaiter(_this, void 0, void 0, function () {
-            var lista, index, producto, title, price, thumbnail;
+            var lista, index, producto, nombre, precio, foto, codigo, descripcion, timestamp;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.getAll()];
@@ -68,11 +68,14 @@ var productsList = /** @class */ (function () {
                         index = lista.findIndex(function (product) { return product.id == id; });
                         producto = lista[index];
                         if (!producto) return [3 /*break*/, 3];
-                        title = newProduct.title, price = newProduct.price, thumbnail = newProduct.thumbnail;
+                        nombre = newProduct.nombre, precio = newProduct.precio, foto = newProduct.foto, codigo = newProduct.codigo, descripcion = newProduct.descripcion, timestamp = newProduct.timestamp;
                         // Actualizar los datos:
-                        producto.product.title = title;
-                        producto.product.price = price;
-                        producto.product.thumbnail = thumbnail;
+                        producto.product.nombre = nombre;
+                        producto.product.precio = precio;
+                        producto.product.foto = foto;
+                        producto.product.codigo = codigo;
+                        producto.product.descripcion = descripcion;
+                        producto.product.timestamp = timestamp;
                         // Insertar el producto modificado en la lista:
                         lista[index] = producto;
                         return [4 /*yield*/, this.saveList(lista)];

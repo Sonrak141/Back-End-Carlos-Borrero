@@ -1,9 +1,12 @@
 const fs = require("fs");
 
 interface prodFill {
-  title: string;
-  price: number;
-  thumbnail: string;
+  nombre: string;
+  precio: number;
+  foto: string;
+  descripcion: string;
+  codigo: string;
+  timestamp: any;
 }
 
 interface product {
@@ -101,13 +104,16 @@ class productsList {
     if (producto) {
       // Desestructuración de las propiedades del nuevo producto:
 
-      const { title, price, thumbnail } = newProduct;
+      const { nombre, precio, foto, codigo, descripcion, timestamp } = newProduct;
 
       // Actualizar los datos:
 
-      producto.product.title = title;
-      producto.product.price = price;
-      producto.product.thumbnail = thumbnail;
+      producto.product.nombre = nombre;
+      producto.product.precio = precio;
+      producto.product.foto = foto;
+      producto.product.codigo = codigo;
+      producto.product.descripcion = descripcion;
+      producto.product.timestamp = timestamp
 
       // Insertar el producto modificado en la lista:
 
