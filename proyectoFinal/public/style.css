@@ -1,3 +1,15 @@
+html{
+    font-family: 'Open Sans', sans-serif;
+}
 .title{
-    background-color: blue;
+    
+}
+
+.productCard{
+    background-color:rgb(255, 237, 221);
+    padding: 40px;
+    border-radius: 20px;
+    margin: 50px;
+    -webkit-box-shadow: 5px 2px 23px -4px rgba(0,0,0,0.12); 
+    box-shadow: 5px 2px 23px -4px rgba(0,0,0,0.12);
 }

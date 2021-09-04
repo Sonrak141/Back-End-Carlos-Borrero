@@ -62,16 +62,35 @@ app.set("view engine", "hbs");
 app.set('views', './src/views');
 var prod = new ListMaker('./src/productos.json');
 var car = new ListMaker('./src/carrito.json');
+var onClick = function () { return console.log('click'); };
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+productos.use(express.static('public'));
 app.get('/', function (req, res) {
     res.render('welcome', { Layout: 'index' });
 });
-productos.get('/', function (req, res) {
+productos.get('/productonuevo', function (req, res) {
     res.render('formulario', { Layout: 'index' });
 });
-productos.post('/productoNuevo', adminCheck, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+productos.get('/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var listaProductos;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, prod.read()];
+            case 1:
+                listaProductos = _a.sent();
+                console.log(listaProductos);
+                res.render('productos', {
+                    Layout: 'index',
+                    listaProductos: listaProductos,
+                    onClick: onClick
+                });
+                return [2 /*return*/];
+        }
+    });
+}); });
+productos.post('/productonuevo', adminCheck, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var body;
     return __generator(this, function (_a) {
         switch (_a.label) {

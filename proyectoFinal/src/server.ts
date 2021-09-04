@@ -31,19 +31,30 @@ app.set('views', './src/views')
 const prod = new ListMaker('./src/productos.json')
 const car = new ListMaker('./src/carrito.json')
 
+const onClick = () => console.log('click')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'));
+productos.use(express.static('public'));
 
 app.get('/', (req: any, res: any) => {
     res.render('welcome', {Layout: 'index'})
 })
- productos.get('/', (req, res) => {
+ productos.get('/productonuevo', (req, res) => {
      res.render('formulario', {Layout: 'index'})
  })
+ productos.get('/', async (req: any, res: any) => {
+    const listaProductos = await prod.read()
+    console.log(listaProductos)
+     res.render('productos', {
+         Layout: 'index',
+         listaProductos,
+         onClick
+        })
+ })
 
- productos.post('/productoNuevo',adminCheck, async (req: any, res: any) => {
+ productos.post('/productonuevo',adminCheck, async (req: any, res: any) => {
     const {body} = req;
     await prod.save(body)
     res.redirect('/api/productos')

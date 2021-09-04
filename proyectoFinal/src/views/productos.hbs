@@ -1,9 +1,11 @@
 <div>
     <h4>productos</h4>
-    {{#if productos}}
-    {{#each productos}}
-        <div>
-            <h4>{{this.product.name}}</h4>
+    {{#if listaProductos}}
+    {{#each listaProductos}}
+        <div class="productCard">
+            <h4>{{this.product.nombre}}</h4>
+            <p>{{this.product.nombre}}</p>
+            <a href={{onClick}}>Agregar a carrito</a>
         </div>
     {{/each}}
     {{else}}
