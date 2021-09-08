@@ -80,11 +80,9 @@ productos.get('/', function (req, res) { return __awaiter(_this, void 0, void 0,
             case 0: return [4 /*yield*/, prod.read()];
             case 1:
                 listaProductos = _a.sent();
-                console.log(listaProductos);
                 res.render('productos', {
                     Layout: 'index',
-                    listaProductos: listaProductos,
-                    onClick: onClick
+                    listaProductos: listaProductos
                 });
                 return [2 /*return*/];
         }
@@ -104,9 +102,38 @@ productos.post('/productonuevo', adminCheck, function (req, res) { return __awai
         }
     });
 }); });
-carrito.get('/', function (req, res) {
-    res.send('Carrito');
-});
+carrito.get('/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var listaCarrito;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, car.read()];
+            case 1:
+                listaCarrito = _a.sent();
+                res.render('productos', {
+                    Layout: 'index',
+                    listaCarrito: listaCarrito
+                });
+                return [2 /*return*/];
+        }
+    });
+}); });
+carrito.post('/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var id, productos, newCar;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, prod.read()];
+            case 1:
+                productos = _a.sent();
+                newCar = productos.find(function (producto) { return producto.id === id; });
+                console.log(newCar);
+                car.save(newCar);
+                res.redirect('/api/carrito');
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.get('/', function (req, res) { });
 app.use('/api/productos', productos);
 app.use('/api/carrito', carrito);

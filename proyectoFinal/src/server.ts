@@ -46,11 +46,10 @@ app.get('/', (req: any, res: any) => {
  })
  productos.get('/', async (req: any, res: any) => {
     const listaProductos = await prod.read()
-    console.log(listaProductos)
+    
      res.render('productos', {
          Layout: 'index',
          listaProductos,
-         onClick
         })
  })
 
@@ -60,8 +59,22 @@ app.get('/', (req: any, res: any) => {
     res.redirect('/api/productos')
     
 })
- carrito.get('/', (req, res) => {
-     res.send('Carrito')
+ carrito.get('/', async (req, res) => {
+    const listaCarrito = await car.read()
+    
+     res.render('productos', {
+         Layout: 'index',
+         listaCarrito,
+        })
+ })
+
+ carrito.post('/:id', async (req, res) => {
+     const {id} = req.params
+     const productos = await prod.read()
+     const newCar = productos.find(producto => producto.id === id)
+     console.log(newCar)
+     car.save(newCar)
+     res.redirect('/api/carrito')
  })
 
 app.get('/', (req, res) => {})
