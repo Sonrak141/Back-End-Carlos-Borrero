@@ -1,0 +1,14 @@
+<div>
+    <h4>Carrito</h4>
+    {{#if listaCarrito}}
+    {{#each listaCarrito}}
+        <div class="productCard">
+            <h4>{{this.product.nombre}}</h4>
+            <p>{{this.product.nombre}}</p>
+            
+        </div>
+    {{/each}}
+    {{else}}
+    <h5>No hay productos</h5>
+    {{/if}}    
+</div>

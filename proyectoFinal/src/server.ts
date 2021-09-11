@@ -62,19 +62,20 @@ app.get('/', (req: any, res: any) => {
  carrito.get('/', async (req, res) => {
     const listaCarrito = await car.read()
     
-     res.render('productos', {
+     res.render('productosCarrito', {
          Layout: 'index',
          listaCarrito,
         })
  })
 
- carrito.post('/:id', async (req, res) => {
+ carrito.get('/:id', async (req, res) => {
      const {id} = req.params
      const productos = await prod.read()
-     const newCar = productos.find(producto => producto.id === id)
-     console.log(newCar)
-     car.save(newCar)
-     res.redirect('/api/carrito')
+     const newCar = productos.find(prod=> prod.id == id).product
+     await console.log(productos)
+     await car.save(newCar)
+    res.redirect('/api/carrito')
+   
  })
 
 app.get('/', (req, res) => {})

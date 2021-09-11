@@ -109,7 +109,7 @@ carrito.get('/', function (req, res) { return __awaiter(_this, void 0, void 0, f
             case 0: return [4 /*yield*/, car.read()];
             case 1:
                 listaCarrito = _a.sent();
-                res.render('productos', {
+                res.render('productosCarrito', {
                     Layout: 'index',
                     listaCarrito: listaCarrito
                 });
@@ -117,7 +117,7 @@ carrito.get('/', function (req, res) { return __awaiter(_this, void 0, void 0, f
         }
     });
 }); });
-carrito.post('/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+carrito.get('/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var id, productos, newCar;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -126,9 +126,13 @@ carrito.post('/:id', function (req, res) { return __awaiter(_this, void 0, void 
                 return [4 /*yield*/, prod.read()];
             case 1:
                 productos = _a.sent();
-                newCar = productos.find(function (producto) { return producto.id === id; });
-                console.log(newCar);
-                car.save(newCar);
+                newCar = productos.find(function (prod) { return prod.id == id; }).product;
+                return [4 /*yield*/, console.log(productos)];
+            case 2:
+                _a.sent();
+                return [4 /*yield*/, car.save(newCar)];
+            case 3:
+                _a.sent();
                 res.redirect('/api/carrito');
                 return [2 /*return*/];
         }
