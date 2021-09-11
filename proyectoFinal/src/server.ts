@@ -1,4 +1,4 @@
-const ListMaker = require('./class/class.js')
+const ListMaker = require('./repositories/class.js')
 const express = require('express')
 const {Router} = express()
 const emoji = require('node-emoji');
@@ -21,12 +21,12 @@ app.engine('hbs',
     handlebars({
         extname:'hbs',
         defaultLayout: 'index',
-        layoutsDir: __dirname + '/views',
-        partialsDir: __dirname + '/views'
+        layoutsDir: __dirname + '/controllers',
+        partialsDir: __dirname + '/controllers'
     })
 )
 app.set("view engine", "hbs")
-app.set('views', './src/views')
+app.set('views', './src/controllers')
 
 const prod = new ListMaker('./src/productos.json')
 const car = new ListMaker('./src/carrito.json')

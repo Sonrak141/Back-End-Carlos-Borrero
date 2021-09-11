@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var ListMaker = require('./class/class.js');
+var ListMaker = require('./repositories/class.js');
 var express = require('express');
 var Router = express().Router;
 var emoji = require('node-emoji');
@@ -55,11 +55,11 @@ var adminCheck = function (req, res, next) {
 app.engine('hbs', handlebars({
     extname: 'hbs',
     defaultLayout: 'index',
-    layoutsDir: __dirname + '/views',
-    partialsDir: __dirname + '/views'
+    layoutsDir: __dirname + '/controllers',
+    partialsDir: __dirname + '/controllers'
 }));
 app.set("view engine", "hbs");
-app.set('views', './src/views');
+app.set('views', './src/controllers');
 var prod = new ListMaker('./src/productos.json');
 var car = new ListMaker('./src/carrito.json');
 var onClick = function () { return console.log('click'); };
