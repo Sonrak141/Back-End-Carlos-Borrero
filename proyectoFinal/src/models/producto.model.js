@@ -12,12 +12,10 @@ var ProductosSchema = mongoose.Schema({
         required: true
     },
     imagen: {
-        type: String,
-        required: true
+        type: String
     },
     stock: {
-        type: Number,
-        required: true
+        type: Number
     }
 });
 exports.ProductosModel = mongoose.model('Productos', ProductosSchema);

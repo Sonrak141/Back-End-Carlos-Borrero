@@ -3,13 +3,14 @@ const express = require('express')
 const {Router} = express()
 const emoji = require('node-emoji');
 const handlebars = require('express-handlebars');
+const {createProduct, readProduct} = require('./repositories/mongodb.js')
 
 
 const app = express()
 const productos = express.Router()
 const carrito = express.Router();
 
-const admin = false
+const admin = true
 const adminCheck = (req, res, next) => {
     if (admin) {
         next();
@@ -45,7 +46,8 @@ app.get('/', (req: any, res: any) => {
      res.render('formulario', {Layout: 'index'})
  })
  productos.get('/', async (req: any, res: any) => {
-    const listaProductos = await prod.read()
+    const listaProductos = await readProduct()
+    console.log(listaProductos)
     
      res.render('productos', {
          Layout: 'index',
@@ -55,7 +57,7 @@ app.get('/', (req: any, res: any) => {
 
  productos.post('/productonuevo',adminCheck, async (req: any, res: any) => {
     const {body} = req;
-    await prod.save(body)
+    await createProduct(body)
     res.redirect('/api/productos')
     
 })

@@ -3,8 +3,8 @@
     {{#if listaProductos}}
     {{#each listaProductos}}
         <div class="productCard">
-            <h4>{{this.product.nombre}}</h4>
-            <p>{{this.product.nombre}}</p>
+            <h4>{{this.nombre}}</h4>
+            <p>{{this.nombre}}</p>
             <a href=/api/carrito/{{this.id}}>Agregar a carrito</a>
         </div>
     {{/each}}

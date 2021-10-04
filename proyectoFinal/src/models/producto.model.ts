@@ -11,11 +11,11 @@ const ProductosSchema = mongoose.Schema({
     },
     imagen:{
         type:String,    
-        required:true,
+        // required:true,
     },
     stock:{
         type:Number,
-        required:true,
+        // required:true,
     }
 })
 

@@ -40,10 +40,11 @@ var express = require('express');
 var Router = express().Router;
 var emoji = require('node-emoji');
 var handlebars = require('express-handlebars');
+var _a = require('./repositories/mongodb.js'), createProduct = _a.createProduct, readProduct = _a.readProduct;
 var app = express();
 var productos = express.Router();
 var carrito = express.Router();
-var admin = false;
+var admin = true;
 var adminCheck = function (req, res, next) {
     if (admin) {
         next();
@@ -77,9 +78,10 @@ productos.get('/', function (req, res) { return __awaiter(_this, void 0, void 0,
     var listaProductos;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, prod.read()];
+            case 0: return [4 /*yield*/, readProduct()];
             case 1:
                 listaProductos = _a.sent();
+                console.log(listaProductos);
                 res.render('productos', {
                     Layout: 'index',
                     listaProductos: listaProductos
@@ -94,7 +96,7 @@ productos.post('/productonuevo', adminCheck, function (req, res) { return __awai
         switch (_a.label) {
             case 0:
                 body = req.body;
-                return [4 /*yield*/, prod.save(body)];
+                return [4 /*yield*/, createProduct(body)];
             case 1:
                 _a.sent();
                 res.redirect('/api/productos');
