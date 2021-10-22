@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "mock": "nodemon --inspect ./src/server.js"
@@ -16,7 +16,8 @@
     "express": "^4.17.1",
     "faker": "^5.5.3",
     "morgan": "^1.10.0",
-    "node-emoji": "^1.11.0"
+    "node-emoji": "^1.11.0",
+    "normalizr": "^3.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
