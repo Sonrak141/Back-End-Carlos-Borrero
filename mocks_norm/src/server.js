@@ -3,7 +3,7 @@ import emoji from 'node-emoji'
 import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
-import productos from './routers/product.router'
+import productos from './routers/product.router.js'
 dotenv.config()
 const app = express()
 app.use(cors())

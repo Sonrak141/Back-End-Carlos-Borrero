@@ -1,7 +1,8 @@
 import express from 'express';
+import { createProduct } from '../controllers/product.controller.js';
 
 const productos = express.Router()
 
-productos.get('/')
+productos.post('/', createProduct)
 
 export default productos
