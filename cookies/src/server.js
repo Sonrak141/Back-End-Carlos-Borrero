@@ -4,21 +4,16 @@ import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import MongoStore from 'connect-mongo'
-<<<<<<< HEAD
 import session from 'express-session'
 
-=======
->>>>>>> 32b808cf37fd0739704c57558e101f2dcac57dbc
 dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended:true}))
 app.use(morgan('dev'))
-<<<<<<< HEAD
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
 const options = {userNewUrlParser:true, useUnifiedTopology:true}
 app.use(session({
     store:MongoStore.create({
@@ -36,7 +31,7 @@ app.get('/contador', (req, res)=>{
         res.send(`Has visitado la pagina ${req.session.contador}`)
       } else {
         req.session.contador = 1
-        res.send('Bienvenidor!')
+        res.send('Bienvenidos!')
       }
 })
 app.get('/', (req, res) => {
@@ -63,15 +58,7 @@ app.get('/logout', function(req, res) {
         }
     })
 })
-=======
-const options = {userNewUrlParser:true, useUnifiedTopology:true}
-app.use(session({
-    store: MongoStore.create({
-        mongoUrl:
-        options
-    })
-}))
->>>>>>> 32b808cf37fd0739704c57558e101f2dcac57dbc
+
 
 app.get('/', (req, res) => { })
 
