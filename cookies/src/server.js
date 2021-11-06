@@ -1,10 +1,12 @@
-import express from 'express'
-import emoji from 'node-emoji'
-import cors from 'cors'
-import morgan from 'morgan'
-import dotenv from 'dotenv'
-import MongoStore from 'connect-mongo'
-import session from 'express-session'
+const express =require( 'express')
+const emoji =require('node-emoji') 
+const cors =require('cors') 
+const morgan =require('morgan') 
+const dotenv =require('dotenv') 
+const MongoStore =require('connect-mongo') 
+const session =require('express-session') 
+const path =require('path') 
+
 
 dotenv.config()
 const app = express()
@@ -35,7 +37,11 @@ app.get('/contador', (req, res)=>{
       }
 })
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + './public/index.html')
+    res.sendFile(__dirname+ '/public/index.html')
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname+ '/public/login.html')
 })
 
 app.post('/login',(req, res) => {
@@ -45,11 +51,12 @@ app.post('/login',(req, res) => {
    }else{
        req.session.user = req.body.user
        req.session.admin = true
-       res.send('Login Success, Welcome ')
+       res.sendFile(__dirname+ '/public/login.html')
+       
    }
 })
 
-app.get('/logout', function(req, res) {
+app.post('/logout', function(req, res) {
     req.session.destroy((err) => {
         if(!err) {
             res.send('Log Out')
