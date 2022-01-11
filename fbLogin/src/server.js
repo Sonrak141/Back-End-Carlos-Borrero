@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.status(200).send("Server Up")
 })
 
-app.user('/user', UserRouter)
+app.use('/user', UserRouter)
 
 const PORT = process.env.PORT || 3000
 const server = app.listen(PORT, () => console.log(emoji.get('fire'),`Server started on port http://localhost/${PORT}`))
