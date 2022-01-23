@@ -15,7 +15,7 @@ app.use(morgan('dev'))
 
 app.get('/', (req, res) => { 
     console.log("Server Up")
-    res.status(200).send("Server Up")
+    res.status(200).send("<h1>Server Up</h1>")
 })
 
 app.use('/user', UserRouter)
