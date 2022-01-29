@@ -40,10 +40,11 @@ var express = require('express');
 var Router = express().Router;
 var emoji = require('node-emoji');
 var handlebars = require('express-handlebars');
-var _a = require('./repositories/mongodb.js'), createProduct = _a.createProduct, readProduct = _a.readProduct;
+var _a = require('./repositories/mongodb.js'), createProduct = _a.createProduct, readProduct = _a.readProduct, creatUser = _a.creatUser;
 var app = express();
 var productos = express.Router();
 var carrito = express.Router();
+var usuario = express.Router();
 var admin = true;
 var adminCheck = function (req, res, next) {
     if (admin) {
@@ -140,7 +141,35 @@ carrito.get('/:id', function (req, res) { return __awaiter(_this, void 0, void 0
         }
     });
 }); });
+usuario.get('/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.status(200).send('Login de Usuarios');
+        return [2 /*return*/];
+    });
+}); });
+usuario.get('/newuser', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.render('formUser', { layout: 'index' });
+        return [2 /*return*/];
+    });
+}); });
+usuario.post('/newuser', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var body;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                body = req.body;
+                return [4 /*yield*/, creatUser(body)];
+            case 1:
+                _a.sent();
+                res.redirect('/user');
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.get('/', function (req, res) { });
 app.use('/api/productos', productos);
 app.use('/api/carrito', carrito);
+app.use('/user', usuario);
+var PORT = process.argv[2] || 8080;
 app.listen(8080, function () { return console.log(emoji.get('computer'), 'Server up'); });

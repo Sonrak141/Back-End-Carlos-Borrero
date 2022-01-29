@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.readProduct = exports.createProduct = void 0;
+exports.readProduct = exports.creatUser = exports.createProduct = void 0;
 var db = require('../db.js');
 var ProductosModel = require('../models/producto.model.js').ProductosModel;
+var UserModel = require('../models/user.model.js').UserModel;
 function createProduct(product) {
     return __awaiter(this, void 0, void 0, function () {
         var responseProduct, error_1;
@@ -61,6 +62,28 @@ function createProduct(product) {
     });
 }
 exports.createProduct = createProduct;
+function creatUser(user) {
+    return __awaiter(this, void 0, void 0, function () {
+        var responseUser, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, UserModel.create(user)];
+                case 1:
+                    responseUser = _a.sent();
+                    console.log(responseUser);
+                    return [3 /*break*/, 3];
+                case 2:
+                    err_1 = _a.sent();
+                    console.log(err_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.creatUser = creatUser;
 // createProduct();
 function readProduct() {
     return __awaiter(this, void 0, void 0, function () {
