@@ -3,7 +3,7 @@ const express = require('express')
 const {Router} = express()
 const emoji = require('node-emoji');
 const handlebars = require('express-handlebars');
-const {createProduct, readProduct, creatUser} = require('./repositories/mongodb.js')
+const {createProduct, readProduct, creatUser, readUser} = require('./repositories/mongodb.js')
 
 
 const app = express()
@@ -18,6 +18,10 @@ const adminCheck = (req: any, res: any, next: any) => {
     }else{
         console.log('No eres admin')
     }
+}
+
+const auth = (req: any, res: any, next: any) =>{
+    
 }
 app.engine('hbs',
     handlebars({
@@ -82,7 +86,16 @@ app.get('/', (req: any, res: any) => {
  })
 
  usuario.get('/', async (req: any, res: any) => {
-     res.status(200).send('Login de Usuarios')
+     const listUsers = await readUser()
+     console.log(listUsers)
+     res.status(200).render('formLogin', {layout: 'index'})
+ })
+ usuario.post('/', async (req: any, res: any) => {
+     const {body} = req
+     console.log(body)
+     const listUsers = await readUser()
+     console.log(listUsers)
+
  })
  usuario.get('/newuser', async (req: any, res: any) =>{
      res.render('formUser', {layout: 'index'})

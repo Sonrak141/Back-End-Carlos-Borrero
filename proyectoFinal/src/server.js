@@ -40,7 +40,7 @@ var express = require('express');
 var Router = express().Router;
 var emoji = require('node-emoji');
 var handlebars = require('express-handlebars');
-var _a = require('./repositories/mongodb.js'), createProduct = _a.createProduct, readProduct = _a.readProduct, creatUser = _a.creatUser;
+var _a = require('./repositories/mongodb.js'), createProduct = _a.createProduct, readProduct = _a.readProduct, creatUser = _a.creatUser, readUser = _a.readUser;
 var app = express();
 var productos = express.Router();
 var carrito = express.Router();
@@ -53,6 +53,8 @@ var adminCheck = function (req, res, next) {
     else {
         console.log('No eres admin');
     }
+};
+var auth = function (req, res, next) {
 };
 app.engine('hbs', handlebars({
     extname: 'hbs',
@@ -142,9 +144,31 @@ carrito.get('/:id', function (req, res) { return __awaiter(_this, void 0, void 0
     });
 }); });
 usuario.get('/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var listUsers;
     return __generator(this, function (_a) {
-        res.status(200).send('Login de Usuarios');
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, readUser()];
+            case 1:
+                listUsers = _a.sent();
+                console.log(listUsers);
+                res.status(200).render('formLogin', { layout: 'index' });
+                return [2 /*return*/];
+        }
+    });
+}); });
+usuario.post('/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var body, listUsers;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                body = req.body;
+                console.log(body);
+                return [4 /*yield*/, readUser()];
+            case 1:
+                listUsers = _a.sent();
+                console.log(listUsers);
+                return [2 /*return*/];
+        }
     });
 }); });
 usuario.get('/newuser', function (req, res) { return __awaiter(_this, void 0, void 0, function () {

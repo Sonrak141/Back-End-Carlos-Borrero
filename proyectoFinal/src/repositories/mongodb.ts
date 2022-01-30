@@ -27,3 +27,8 @@ export async function readProduct(){
     const productos = await ProductosModel.find();
     return productos
 }
+
+export async function readUser(){
+    const users = await UserModel.find();
+    return users
+}
