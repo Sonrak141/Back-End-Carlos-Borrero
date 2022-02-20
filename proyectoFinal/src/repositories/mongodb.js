@@ -40,9 +40,46 @@ exports.readUser = exports.readProduct = exports.creatUser = exports.createProdu
 var db = require('../db.js');
 var ProductosModel = require('../models/producto.model.js').ProductosModel;
 var UserModel = require('../models/user.model.js').UserModel;
+var createTransport = require('nodemailer').createTransport;
+var logger = require('../logger.js');
+var transporter = createTransport({
+    service: 'gmail',
+    port: 587,
+    auth: {
+        user: 'codertest141@gmail.com',
+        pass: 'coder1234'
+    }
+});
+var mailOptions = {
+    from: 'Servidor Coder',
+    to: 'codertest141@gmail.com',
+    subject: 'Nuevo usuario',
+    html: '<h1>Nuevo usuario se ha registrado</h1>'
+};
+function sendMailGmail() {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, transporter.sendMail(mailOptions)];
+                case 1:
+                    response = _a.sent();
+                    logger.log('warn', response);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    logger.log('error', error_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function createProduct(product) {
     return __awaiter(this, void 0, void 0, function () {
-        var responseProduct, error_1;
+        var responseProduct, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -50,11 +87,11 @@ function createProduct(product) {
                     return [4 /*yield*/, ProductosModel.create(product)];
                 case 1:
                     responseProduct = _a.sent();
-                    console.log(responseProduct);
+                    logger.log('warn', responseProduct);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _a.sent();
-                    console.log(error_1);
+                    error_2 = _a.sent();
+                    logger.log('error', error_2);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -68,17 +105,20 @@ function creatUser(user) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, UserModel.create(user)];
                 case 1:
                     responseUser = _a.sent();
-                    console.log(responseUser);
-                    return [3 /*break*/, 3];
+                    logger.log('warn', responseUser);
+                    return [4 /*yield*/, sendMailGmail()];
                 case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
                     err_1 = _a.sent();
-                    console.log(err_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    logger.log('error', err_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

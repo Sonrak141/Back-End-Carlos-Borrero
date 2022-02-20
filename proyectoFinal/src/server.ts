@@ -4,6 +4,8 @@ const {Router} = express()
 const emoji = require('node-emoji');
 const handlebars = require('express-handlebars');
 const {createProduct, readProduct, creatUser, readUser} = require('./repositories/mongodb.js')
+const logger = require('./logger.js')
+const productosRouter = require('./router/productos.route.js')
 
 
 const app = express()
@@ -12,16 +14,27 @@ const carrito = express.Router();
 const usuario = express.Router();
 
 const admin = true
+let log = false
 const adminCheck = (req: any, res: any, next: any) => {
     if (admin) {
         next();
     }else{
-        console.log('No eres admin')
+        logger.log('warn','No eres admin')
     }
 }
 
-const auth = (req: any, res: any, next: any) =>{
-    
+const auth = async (req: any, res: any, next: any) =>{
+    const {body} = req;
+    const listUsers = await readUser()
+    listUsers.forEach((_user: any) => {
+        if (_user.usuario === body.usuario) {
+            if(_user.contrasena === body.contrasena){
+                next();
+            }else{
+                logger.log('info','Contrasena incorrecta')
+            }
+        }else{logger.log('info','Usuario no existe')}
+    });
 }
 app.engine('hbs',
     handlebars({
@@ -47,25 +60,7 @@ productos.use(express.static('public'));
 app.get('/', (req: any, res: any) => {
     res.render('welcome', {Layout: 'index'})
 })
- productos.get('/productonuevo', (req: any, res: any) => {
-     res.render('formulario', {Layout: 'index'})
- })
- productos.get('/', async (req: any, res: any) => {
-    const listaProductos = await readProduct()
-    console.log(listaProductos)
-    
-     res.render('productos', {
-         Layout: 'index',
-         listaProductos,
-        })
- })
 
- productos.post('/productonuevo',adminCheck, async (req: any, res: any) => {
-    const {body} = req;
-    await createProduct(body)
-    res.redirect('/api/productos')
-    
-})
  carrito.get('/', async (req: any, res: any) => {
     const listaCarrito = await car.read()
     
@@ -79,7 +74,7 @@ app.get('/', (req: any, res: any) => {
      const {id} = req.params
      const productos = await prod.read()
      const newCar = productos.find((prod: { id: any; })=> prod.id == id).product
-     await console.log(productos)
+     await logger.log('warn',productos)
      await car.save(newCar)
     res.redirect('/api/carrito')
    
@@ -87,14 +82,11 @@ app.get('/', (req: any, res: any) => {
 
  usuario.get('/', async (req: any, res: any) => {
      const listUsers = await readUser()
-     console.log(listUsers)
+     logger.log('warn',listUsers)
      res.status(200).render('formLogin', {layout: 'index'})
  })
- usuario.post('/', async (req: any, res: any) => {
-     const {body} = req
-     console.log(body)
-     const listUsers = await readUser()
-     console.log(listUsers)
+ usuario.post('/',auth, async (req: any, res: any) => {
+    res.status(200).redirect('/api/productos')
 
  })
  usuario.get('/newuser', async (req: any, res: any) =>{
@@ -108,10 +100,10 @@ app.get('/', (req: any, res: any) => {
 
 app.get('/', (req: any, res: any) => {})
 
-     app.use('/api/productos', productos);
+     app.use('/api/productos', productosRouter.start());
      app.use('/api/carrito', carrito);
      app.use('/user',usuario);
 
 const PORT = process.argv[2] || 8080
 
-app.listen(8080,() => console.log(emoji.get('computer'),'Server up'))
+app.listen(8080,() => logger.log('info',emoji.get('computer'),'Server up'))
